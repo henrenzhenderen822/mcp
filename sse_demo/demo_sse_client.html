@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <div id="messages"></div>
+    <script>
+        // 连接 SSE 服务器
+        const eventSource = new EventSource("http://localhost:3000/sse");
+
+        const messages = document.getElementById('messages');
+
+        eventSource.onmessage = (event) => {
+            console.log("收到消息:", event.data);
+            document.getElementById("messages").innerHTML += `<p>${event.data}</p>`;
+        };
+
+        eventSource.addEventListener("close", (event) => {
+            console.log("连接已关闭");
+            eventSource.close();
+        });
+    </script>
+</body>
+
+<html>
